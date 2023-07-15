@@ -6,24 +6,37 @@
     </li>
 
     @if (in_array(auth()->user()->role->level, [1,2,3]))
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('privileged.users.index') }}">
-            {{ __('Add Access Pages') }}
-        </a>
-    </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('privileged.users.index') }}">
+                {{ __('Add Access Pages') }}
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('users.index') }}">
+                {{ __('Users') }}
+            </a>
+        </li>
+
+        <li class="nav-group" aria-expanded="false">
+            <a class="nav-link nav-group-toggle" href="#">
+                Master
+            </a>
+            <ul class="nav-group-items" style="height: 0px;">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('privileged.master.status.index') }}" target="_top">
+                        Master Status
+                    </a>
+                </li>
+            </ul>
+        </li>
     @endif
 
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('users.index') }}">
-            {{ __('Users') }}
-        </a>
-    </li>
-
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link" href="{{ route('about') }}">
             {{ __('About us') }}
         </a>
-    </li>
+    </li> --}}
 
     <li class="nav-group" aria-expanded="false">
         <a class="nav-link nav-group-toggle" href="#">

@@ -79,4 +79,9 @@ class User extends Authenticatable
     {
         return parent::newEloquentBuilder($query)->with('role'); // Replace 'relationships' with the actual relationships you want to eager load
     }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return date('d-m-Y H:i:s', strtotime($value));
+    }
 }

@@ -40,12 +40,15 @@ Route::middleware('auth')->group(function () {
 
             Route::get('/add-access/checkRoles', [UserPriviledgeController::class, 'checkRoles'])->name('privileged.users.checkRoles');
             Route::post('/add-access/update', [UserPriviledgeController::class, 'update'])->name('privileged.users.update');
+
+            Route::get('users', [\App\Http\Controllers\UserController::class, 'index'])->name('users.index')->routeTitle('Users List Page');
+
+            Route::get('/mst-status', [\App\Http\Controllers\Masters\MasterStatusController::class, 'index'])->name('privileged.master.status.index')->routeTitle('Master Status Page');
+            Route::post('/mst-status/create', [\App\Http\Controllers\Masters\MasterStatusController::class, 'create'])->name('privileged.master.status.create');
         });
 
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->routeTitle('Dashboard Page');
-        Route::view('about', 'about')->name('about')->routeTitle('About Page');
-
-        Route::get('users', [\App\Http\Controllers\UserController::class, 'index'])->name('users.index')->routeTitle('Users List Page');
+        // Route::view('about', 'about')->name('about')->routeTitle('About Page');
 
         Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show')->routeTitle('User Profile Page');
         Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update')->routeTitle('Update User Profile');

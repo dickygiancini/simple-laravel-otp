@@ -40,8 +40,15 @@ class UserVerificationController extends Controller
                     'is_verified' => 1,
                     'otp' => null,
                     'email_send_at' => null,
-                    'email_verified_at' => Carbon::now()
+                    'email_verified_at' => Carbon::now(),
+                    'role_level' => 6
                 ]);
+
+                UsersBalanceInfo::create([
+                    'user_id' => $user->id,
+                    'balance' => 0
+                ]);
+
                 DB::commit();
                 return redirect()->route('home');
             } catch (\Throwable $th) {

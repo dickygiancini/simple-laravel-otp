@@ -24,7 +24,8 @@ class User extends Authenticatable
         'password',
         'pin',
         'otp',
-        'email_verified_at'
+        'email_verified_at',
+        'email_send_at'
     ];
 
     /**
@@ -44,8 +45,9 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'email_send_at' => 'datetime',
         'password' => 'hashed',
-        'pin' => 'encrypted'
+        'pin' => 'hashed'
     ];
 
     public $incrementing = false;

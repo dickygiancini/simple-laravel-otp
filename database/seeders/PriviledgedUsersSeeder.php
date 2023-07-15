@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\User\UsersBalanceInfo;
 use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -23,7 +24,7 @@ class PriviledgedUsersSeeder extends Seeder
             'pin' => Hash::make('050699'),
             'is_verified' => true,
             'email_verified_at' => Carbon::now(),
-            'role_level' => 1
+            'role_id' => 1
         ]);
 
         UsersBalanceInfo::create([

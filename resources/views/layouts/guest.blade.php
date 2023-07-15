@@ -18,7 +18,7 @@
         </div>
     </div>
 </div>
-<script src="{{ asset('js/coreui.bundle.min.js') }}"></script>
+{{-- <script src="{{ asset('js/coreui.bundle.min.js') }}"></script> --}}
 @include('layouts.scripts')
 </body>
 </html>

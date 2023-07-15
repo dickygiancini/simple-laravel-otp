@@ -13,8 +13,12 @@ return new class extends Migration
     {
         Schema::create('user_privileges', function (Blueprint $table) {
             $table->id();
-            $table->integer('role_level');
+            // $table->integer('role_level');
+            $table->foreignId('role_id')
+            ->constrained('mst_roles')
+            ->onDelete('cascade');
             $table->string('route_name');
+            $table->string('route_alias');
             $table->boolean('can_access')->default(false);
             $table->boolean('can_create')->default(false);
             $table->boolean('can_update')->default(false);

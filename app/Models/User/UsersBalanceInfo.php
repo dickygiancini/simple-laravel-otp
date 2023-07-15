@@ -5,6 +5,7 @@ namespace App\Models\User;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class UsersBalanceInfo extends Model
 {
@@ -18,6 +19,15 @@ class UsersBalanceInfo extends Model
         'user_id',
         'balance',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function($model) {
+            $model->id = Str::uuid()->toString();
+        });
+    }
 
     public function user()
     {

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Privileged\UserPriviledgeController;
 use App\Http\Controllers\UserVerificationController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,13 +35,20 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('verified')->group(function () {
 
-        Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-        Route::view('about', 'about')->name('about');
+        Route::middleware('privilege')->group(function() {
+            Route::get('/add-access', [UserPriviledgeController::class, 'index'])->name('privileged.users.index');
 
-        Route::get('users', [\App\Http\Controllers\UserController::class, 'index'])->name('users.index');
+            Route::get('/add-access/checkRoles', [UserPriviledgeController::class, 'checkRoles'])->name('privileged.users.checkRoles');
+            Route::post('/add-access/update', [UserPriviledgeController::class, 'update'])->name('privileged.users.update');
+        });
 
-        Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
-        Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+        Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->routeTitle('Dashboard Page');
+        Route::view('about', 'about')->name('about')->routeTitle('About Page');
+
+        Route::get('users', [\App\Http\Controllers\UserController::class, 'index'])->name('users.index')->routeTitle('Users List Page');
+
+        Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show')->routeTitle('User Profile Page');
+        Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update')->routeTitle('Update User Profile');
     });
     // Route::view('about', 'about')->name('about');
 

@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('user_privileges', function (Blueprint $table) {
             //
-            $table->foreignId('role_id')
-            ->constrained('mst_roles')
-            ->onDelete('cascade');
+            $table->unsignedBigInteger('parent_id')->nullable();
         });
     }
 
@@ -24,7 +22,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('user_priviledges', function (Blueprint $table) {
             //
         });
     }

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Models\Master\MstRolesModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -60,5 +62,21 @@ class User extends Authenticatable
         static::creating(function($model) {
             $model->id = Str::uuid()->toString();
         });
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(MstRolesModel::class, 'role_id', 'id');
+    }
+
+    /**
+     * Create a new Eloquent query builder for the model.
+     *
+     * @param  \Illuminate\Database\Query\Builder  $query
+     * @return \App\Models\User
+     */
+    public function newEloquentBuilder($query)
+    {
+        return parent::newEloquentBuilder($query)->with('role'); // Replace 'relationships' with the actual relationships you want to eager load
     }
 }

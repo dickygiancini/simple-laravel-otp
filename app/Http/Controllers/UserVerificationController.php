@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserVerificationRequest;
 use App\Mail\VerificationEmail;
 use App\Models\User;
+use App\Models\User\UsersBalanceInfo;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class UserVerificationController extends Controller
 {
@@ -42,7 +44,6 @@ class UserVerificationController extends Controller
                     'otp' => null,
                     'email_send_at' => null,
                     'email_verified_at' => Carbon::now(),
-                    'role_level' => 6
                 ]);
 
                 UsersBalanceInfo::create([

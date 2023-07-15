@@ -52,6 +52,9 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @if (count($datas) == 0)
+                            <td colspan="4">No Transcation History Made</td>
+                        @endif
                         @foreach ($datas as $data)
                             <tr>
                                 <td>{{ $loop->index + 1 }}</td>

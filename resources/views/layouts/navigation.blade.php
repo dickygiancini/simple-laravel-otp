@@ -30,6 +30,12 @@
                 </li>
             </ul>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('approve.request.budget.index') }}">
+                {{ __('Approval Request Budget') }}
+            </a>
+        </li>
     @endif
 
     <li class="nav-item">

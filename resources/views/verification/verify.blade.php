@@ -4,6 +4,16 @@
     <div class="col-md-6">
         <div class="card mb-4 mx-4">
             <div class="card-body p-4">
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <a class="dropdown-item text-end" href="{{ route('logout') }}"
+                       onclick="event.preventDefault(); this.closest('form').submit();">
+                        <svg class="icon me-2">
+                            <use xlink:href="{{ asset('icons/coreui.svg#cil-account-logout') }}"></use>
+                        </svg>
+                        {{ __('Logout') }}
+                    </a>
+                </form>
                 <h1>{{ __('It seems that you are not verified!') }}</h1>
 
                 @if (session('error'))

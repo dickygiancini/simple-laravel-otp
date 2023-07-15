@@ -87,37 +87,37 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                                <div class="col-md-12">
-                                    <input type="hidden" name="role_id" id="role-id" value="">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered align-middle">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center">No</th>
-                                                    <th class="text-center">Page</th>
-                                                    <th class="text-center">Allow Access</th>
-                                                    <th class="text-center">Allow Create</th>
-                                                    <th class="text-center">Allow Modify</th>
-                                                    <th class="text-center">Allow Delete</th>
+                            <div class="col-md-12">
+                                <input type="hidden" name="role_id" id="role-id" value="">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">No</th>
+                                                <th class="text-center">Page</th>
+                                                <th class="text-center">Allow Access</th>
+                                                <th class="text-center">Allow Create</th>
+                                                <th class="text-center">Allow Modify</th>
+                                                <th class="text-center">Allow Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($routings as $routing)
+                                                <tr data-route="{{ $routing->getName() }}">
+                                                    <input type="hidden" name="route_name[{{ $routing->getName() }}]" value="{{ $routing->getRouteTitle() }}">
+                                                    <input type="hidden" name="route_alias[{{ $routing->getName() }}]" value="{{ $routing->getName() }}">
+                                                    <td class="text-center">{{ $loop->index + 1 }}</td>
+                                                    <td class="text-center">{{ $routing->getRouteTitle() }}</td>
+                                                    <td class="text-center"><input class="form-check-input mt-0 can_access_{{ $routing->getName() }}" type="checkbox" name="can_access[{{ $routing->getName() }}]"></td>
+                                                    <td class="text-center"><input class="form-check-input mt-0 can_create_{{ $routing->getName() }}" type="checkbox" name="can_create[{{ $routing->getName() }}]"></td>
+                                                    <td class="text-center"><input class="form-check-input mt-0 can_update_{{ $routing->getName() }}" type="checkbox" name="can_update[{{ $routing->getName() }}]"></td>
+                                                    <td class="text-center"><input class="form-check-input mt-0 can_delete_{{ $routing->getName() }}" type="checkbox" name="can_delete[{{ $routing->getName() }}]"></td>
                                                 </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($routings as $routing)
-                                                    <tr>
-                                                        <input type="hidden" name="route_name[{{ $routing->getName() }}]" value="{{ $routing->getRouteTitle() }}">
-                                                        <input type="hidden" name="route_alias[{{ $routing->getName() }}]" value="{{ $routing->getName() }}">
-                                                        <td class="text-center">{{ $loop->index + 1 }}</td>
-                                                        <td class="text-center">{{ $routing->getRouteTitle() }}</td>
-                                                        <td class="text-center"><input id="can_access_{{ $routing->getName() }}" class="form-check-input mt-0" type="checkbox" name="can_access[{{ $routing->getName() }}]" value="false"></td>
-                                                        <td class="text-center"><input id="can_create_{{ $routing->getName() }}" class="form-check-input mt-0" type="checkbox" name="can_create[{{ $routing->getName() }}]" value="false"></td>
-                                                        <td class="text-center"><input id="can_update_{{ $routing->getName() }}" class="form-check-input mt-0" type="checkbox" name="can_update[{{ $routing->getName() }}]" value="false"></td>
-                                                        <td class="text-center"><input id="can_delete_{{ $routing->getName() }}" class="form-check-input mt-0" type="checkbox" name="can_delete[{{ $routing->getName() }}]" value="false"></td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -133,7 +133,17 @@
 @section('scripts')
 
 <script type="text/javascript">
+    var modal = document.getElementById('exampleModal');
+
+    modal.addEventListener('hidden.coreui.modal', function () {
+        var inputs = modal.querySelectorAll('.modal-body input');
+        inputs.forEach(function (input) {
+            input.value = '';
+        });
+    });
+
     $(document).ready(function() {
+
         // Your jQuery code goes here
         $('.edit-btn').on('click', function() {
             var roleName = $(this).data('role');
@@ -166,26 +176,27 @@
             for (let index = 0; index < array.length; index++) {
                 const element = array[index];
 
+                const routeAlias = element.route_alias;
+                // $(`.can_access_${routeAlias}`).prop('checked', element.can_access).trigger('change')
+                // $(`.can_create_${routeAlias}`).prop('checked', element.can_create).trigger('change')
+                // $(`.can_update_${routeAlias}`).prop('checked', element.can_update).trigger('change')
+                // $(`.can_delete_${routeAlias}`).prop('checked', element.can_delete).trigger('change')
+                const access = document.getElementsByClassName(`can_access_${routeAlias}`)[0];
+                const create = document.getElementsByClassName(`can_create_${routeAlias}`)[0];
+                const update = document.getElementsByClassName(`can_update_${routeAlias}`)[0];
+                const deletes = document.getElementsByClassName(`can_delete_${routeAlias}`)[0];
 
-                if(element.can_access) {
-                    $('#can_access_'+element.route_alias).prop('checked', true)
-                    $('#can_access_'+element.route_alias).val(true)
-                }
+                access.checked = element.can_access
+                create.checked = element.can_create
+                update.checked = element.can_update
+                deletes.checked = element.can_delete
 
-                if(element.can_create) {
-                    $('#can_create_'+element.route_alias).prop('checked', true)
-                    $('#can_create_'+element.route_alias).val(true)
-                }
+                const changeEvent = new Event('change');
 
-                if(element.can_update) {
-                    $('#can_update_'+element.route_alias).prop('checked', true)
-                    $('#can_update_'+element.route_alias).val(true)
-                }
-
-                if(element.can_delete) {
-                    $('#can_delete_'+element.route_alias).prop('checked', true)
-                    $('#can_delete_'+element.route_alias).val(true)
-                }
+                access.dispatchEvent(changeEvent);
+                create.dispatchEvent(changeEvent);
+                update.dispatchEvent(changeEvent);
+                deletes.dispatchEvent(changeEvent);
             }
         }
     });

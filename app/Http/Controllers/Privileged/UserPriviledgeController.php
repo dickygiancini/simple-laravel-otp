@@ -24,7 +24,17 @@ class UserPriviledgeController extends Controller
             }
 
             // Exclude routes not belonging to the specified middleware group
-            return !in_array($middlewareGroup, $route->gatherMiddleware());
+            if (!in_array($middlewareGroup, $route->gatherMiddleware())) {
+                return true;
+            }
+
+            // Exclude routes that don't have the 'getRouteTitle' macro defined
+            $action = $route->getAction();
+            if (!isset($action['title'])) {
+                return true;
+            }
+
+            return false;
         });
 
         return view('verified.privileged.index', compact('roles', 'routings'));

@@ -28,7 +28,8 @@ class User extends Authenticatable
         'pin',
         'otp',
         'email_verified_at',
-        'email_send_at'
+        'email_send_at',
+        'role_id'
     ];
 
     /**

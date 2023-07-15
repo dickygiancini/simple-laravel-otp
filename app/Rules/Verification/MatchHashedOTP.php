@@ -3,6 +3,7 @@
 namespace App\Rules\Verification;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Facades\Hash;

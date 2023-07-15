@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Models\Master\MstRolesModel;
+use App\Models\User\UsersBalanceInfo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -69,6 +70,11 @@ class User extends Authenticatable
         return $this->belongsTo(MstRolesModel::class, 'role_id', 'id');
     }
 
+    public function balance()
+    {
+        return $this->hasOne(UsersBalanceInfo::class, 'user_id', 'id');
+    }
+
     /**
      * Create a new Eloquent query builder for the model.
      *
@@ -77,7 +83,7 @@ class User extends Authenticatable
      */
     public function newEloquentBuilder($query)
     {
-        return parent::newEloquentBuilder($query)->with('role'); // Replace 'relationships' with the actual relationships you want to eager load
+        return parent::newEloquentBuilder($query)->with(['role', 'balance']); // Replace 'relationships' with the actual relationships you want to eager load
     }
 
     public function getCreatedAtAttribute($value)

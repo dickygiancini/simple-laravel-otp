@@ -32,13 +32,13 @@
         </li>
     @endif
 
-    {{-- <li class="nav-item">
-        <a class="nav-link" href="{{ route('about') }}">
-            {{ __('About us') }}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('request.budget.index') }}">
+            {{ __('Request Budget') }}
         </a>
-    </li> --}}
+    </li>
 
-    <li class="nav-group" aria-expanded="false">
+    {{-- <li class="nav-group" aria-expanded="false">
         <a class="nav-link nav-group-toggle" href="#">
             Two-level menu
         </a>
@@ -49,5 +49,5 @@
                 </a>
             </li>
         </ul>
-    </li>
+    </li> --}}
 </ul>

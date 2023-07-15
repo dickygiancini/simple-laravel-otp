@@ -33,4 +33,9 @@ class UsersBalanceInfo extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function getBalanceAttribute($value)
+    {
+        return 'Rp. '.number_format($value, 0, ',', '.');
+    }
 }

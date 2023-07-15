@@ -48,6 +48,8 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->routeTitle('Dashboard Page');
+        Route::get('/request-budget', [App\Http\Controllers\RequestBudgetController::class, 'index'])->name('request.budget.index')->routeTitle('Request Budget Page');
+        Route::post('/request-budget/create', [App\Http\Controllers\RequestBudgetController::class, 'create'])->name('request.budget.create')->routeTitle('Request Budget Page');
         // Route::view('about', 'about')->name('about')->routeTitle('About Page');
 
         Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show')->routeTitle('User Profile Page');

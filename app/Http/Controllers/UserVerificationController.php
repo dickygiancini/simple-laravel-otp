@@ -20,10 +20,19 @@ class UserVerificationController extends Controller
     //
     public function notice()
     {
-        $sendEmail = $this->sendEmail();
+        $user = Auth::user();
 
-        if($sendEmail->status !== 200) {
-            Session::flash('error', $sendEmail->message);
+        // Cek apakah sudah pernah ngirim belum
+        $lastSendOTP = Carbon::parse($user->email_send_at);
+        $now = Carbon::now();
+        $minuteDifference = $lastSendOTP->diffInMinutes($now);
+
+        if($user->otp == null || $minuteDifference > 60) {
+            $sendEmail = $this->sendEmail();
+
+            if($sendEmail->status !== 200) {
+                Session::flash('error', $sendEmail->message);
+            }
         }
 
         return view('verification.verify');

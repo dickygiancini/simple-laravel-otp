@@ -4,6 +4,12 @@
     <div class="col-md-6">
         <div class="card mb-4 mx-4">
             <div class="card-body p-4">
+                <a class="dropdown-item text-end" href="/login">
+                    <svg class="icon me-2">
+                        <use xlink:href="{{ asset('icons/coreui.svg#cil-account-logout') }}"></use>
+                    </svg>
+                    {{ __('Back') }}
+                </a>
                 <h1>{{ __('Reset Password') }}</h1>
                 <form action="{{ route('password.email') }}" method="POST">
                     @csrf

@@ -32,7 +32,7 @@
                                 <div class="input-group-text">
                                     <i class="fa-regular fa-user"></i>
                                 </div>
-                                <input class="form-control" type="number" name="otp" placeholder="{{ __('OTP') }}" required autofocus>
+                                <input class="form-control @error('otp') is-invalid @enderror" type="text" name="otp" placeholder="{{ __('OTP') }}" required autofocus oninput="validatePin(this)">
                                 @error('otp')
                                 <span class="invalid-feedback">
                                     {{ $message }}
@@ -89,7 +89,20 @@
                         })
                     })
             })
+
         })
+
+        function validatePin(input) {
+            const pin = input.value.trim()
+
+            if(pin.length > 6) {
+                input.value = pin.slice(0, 6)
+                return
+            }
+
+            const numericPin = pin.replace(/\D/g, '');
+            input.value = numericPin;
+        }
     </script>
 
 @endsection

@@ -98,7 +98,7 @@ class UserVerificationController extends Controller
         ];
     }
 
-    public function resendEmail()
+    public function resend()
     {
         try {
             //code...
